@@ -12,8 +12,9 @@ public class Member {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
+
     private String name;
-    private Long loginId;
+    private String loginId;
     private String password;
 
     @Enumerated(EnumType.STRING)

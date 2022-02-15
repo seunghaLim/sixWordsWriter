@@ -28,20 +28,15 @@ public class Board {
     private int likeCount;
 
     @OneToMany(mappedBy = "board")
-    private List<Like> likes = new ArrayList<>();
+    private List<Likes> likes = new ArrayList<>();
 
-    /// 연관관계 메서드
-    public void setLikes(Like like){
-        likes.add(like);
-        like.setBoard(this);
-    }
 
     // 비즈니스 로직 - 나중에 좋아요 누르는 로직에서 사용됨
-    public void addLike(){
+    public void addLikeCount(){
         likeCount += 1;
     }
 
-    public void cancelLike(){
+    public void minusLikeCount(){
         likeCount -= 1;
     }
 

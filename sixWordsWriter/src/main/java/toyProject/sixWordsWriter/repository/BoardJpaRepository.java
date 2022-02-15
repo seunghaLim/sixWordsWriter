@@ -8,13 +8,13 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class BoardRepository {
+public class BoardJpaRepository {
 
     @PersistenceContext
     EntityManager em;
 
     // 글 작성 및 수정
-    public void write(Board board){
+    public void save(Board board){
         if (board.getId() == null){
             em.persist(board); // 새로운 객체를 저장
         }
@@ -28,7 +28,7 @@ public class BoardRepository {
         return em.find(Board.class, id); // 못찾으면 null 반환
     }
 
-    // 작성자 이름으로 글 조회 - 검색
+    // 작성자 이름으로 글 조회 -
     public List<Board> findByName(String name){
         return em.createQuery("select b from Board b where b.member.name = :name", Board.class)
                 .setParameter("name", name)
@@ -38,15 +38,24 @@ public class BoardRepository {
 
     // 키워드로 글 조회 - 검색 근데 만약에 검색 띄어쓰기 있으면 어떻게함??
     public List<Board> findByKeyword(String keyword){
-        return em.createQuery("select b from Board b where b.content = :keyword", Board.class)
-                .setParameter("keyword", keyword)
+        return em.createQuery("select b from Board b where b.content like '%" + keyword + "%'", Board.class)
                 .getResultList();
     }
 
 
     // 좋아요 높은 순 5개 조회 (페이징으로)
+    public List<Board> top5Likes(){
+        return em.createQuery("select b from Board b order by b.likeCount desc", Board.class)
+                .setFirstResult(0)
+                .setMaxResults(5)
+                .getResultList();
+    }
 
     // 글 삭제
+    public void delete(Long id){
+        Board findBoard= em.find(Board.class, id);
+        em.remove(findBoard);
+    }
 
     // 내가 좋아요 누른 글은 어떻게 조회함??
 
