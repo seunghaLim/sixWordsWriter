@@ -27,9 +27,8 @@ public class Board {
 
     private int likeCount;
 
-    @OneToMany(mappedBy = "board")
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<Likes> likes = new ArrayList<>();
-
 
     // 비즈니스 로직 - 나중에 좋아요 누르는 로직에서 사용됨
     public void addLikeCount(){

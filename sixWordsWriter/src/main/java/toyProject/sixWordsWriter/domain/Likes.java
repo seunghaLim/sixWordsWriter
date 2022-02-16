@@ -1,5 +1,6 @@
 package toyProject.sixWordsWriter.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,7 +24,7 @@ public class Likes {
 
     /// 연관관계 메서드 - 좋아요 생성할 때 호출해야함
     public void setBoard(Board board){
-        this.setBoard(board);
+        this.board = board;
         board.getLikes().add(this);
     }
 
@@ -32,7 +33,7 @@ public class Likes {
 
         Likes likes = new Likes();
         likes.setMember(member);
-        likes.setBoard(board);
+//        likes.setBoard(board);
 
         //연관관계 추가
         likes.setBoard(board);

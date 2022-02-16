@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import toyProject.sixWordsWriter.domain.Board;
+import toyProject.sixWordsWriter.domain.Likes;
 import toyProject.sixWordsWriter.repository.BoardJpaRepository;
 
 import java.util.List;
@@ -21,9 +22,14 @@ public class BoardService {
         boardJpaRepository.save(board);
     }
 
-    // id로 글 조회 - 내가쓴 글 찾기
-    public Board findById(Long id){
-        return boardJpaRepository.findById(id);
+    // member id로 글 조회 - 내가쓴 글 찾기
+    public List<Board> findByMemberId(Long memberId){
+        return boardJpaRepository.findByMemberId(memberId);
+    }
+
+    // board id로 글 조회 - 없어도 될지도
+    public Board findByBoardId(Long boardId){
+        return boardJpaRepository.findByBoardId(boardId);
     }
 
     // 작성자 이름으로 글 조회 - 검색
@@ -48,6 +54,9 @@ public class BoardService {
     }
 
     // 내가 좋아요 누른 글 조회
+    public List<Board> findLikesBoard(Long memberId){
+        return boardJpaRepository.findLikesBoard(memberId);
+    }
 
 
 }

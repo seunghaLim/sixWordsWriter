@@ -23,9 +23,16 @@ public class BoardJpaRepository {
         }
     }
 
-    // id로 글 조회 - 내가쓴 글 찾기
-    public Board findById(Long id){
-        return em.find(Board.class, id); // 못찾으면 null 반환
+    // 게시글 id로 게시글 찾기
+    public Board findByBoardId(Long boardId) {
+        return em.find(Board.class, boardId);
+    }
+
+    // member id로 글 조회 - 내가쓴 글 찾기
+    public List<Board> findByMemberId(Long memberId){
+        return em.createQuery("select b from Board b where b.member.id = :memberId", Board.class)
+                .setParameter("memberId", memberId)
+                .getResultList();
     }
 
     // 작성자 이름으로 글 조회 -
@@ -54,10 +61,53 @@ public class BoardJpaRepository {
     // 글 삭제
     public void delete(Long id){
         Board findBoard= em.find(Board.class, id);
+        // 좋아요도 삭제해야함
+
         em.remove(findBoard);
     }
 
-    // 내가 좋아요 누른 글은 어떻게 조회함??
+
+    // 내가 좋아요 누른 글 조회
+    public List<Board> findLikesBoard (Long memberId){
+
+        return em.createQuery("select l.board from Likes l where l.member.id = :memberId", Board.class)
+                .setParameter("memberId", memberId)
+                .getResultList();
+
+    }
+
+    // 페이징 전용 메소드
+    public List<Board> findListPaging(int startIndex, int pageSize){
+        return em.createQuery("select b from Board b", Board.class)
+                .setFirstResult(startIndex)
+                .setMaxResults(pageSize)
+                .getResultList();
+    }
+
+    // 전체 글 수
+    public int findAllCnt(){
+        return ((Number) em.createQuery("select count(b) from Board b")
+                .getSingleResult()).intValue();
+    }
+
+
+    // 작성자 이름으로 조회된 글 수
+    public int findByNameCnt(String name){
+        return ((Number) em.createQuery("select count(b) from Board b where b.member.name = :name")
+                .setParameter("name", name)
+                .getSingleResult()).intValue();
+
+    }
+
+    // 키워드로 조회된 글 수
+    public int findByKeywordCnt(String keyword){
+        return ((Number) em.createQuery("select count(b) from Board b where b.content like '%" + keyword + "%'")
+                .getSingleResult()).intValue();
+    }
+
+
+
+
 
 
 }
