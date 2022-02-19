@@ -1,0 +1,42 @@
+.bg-light{
+    background-image: url(https://i.ibb.co/rHNXzPh/image.png);
+    background-repeat: no-repeat;
+    background-position: 85% 15%;
+    background-color: white!important;
+}
+
+.text-white {
+    --bs-text-opacity: 1;
+    color: rgba(var(--bs-white-rgb),var(--bs-text-opacity))!important;
+}
+
+.bg-dark {
+    --bs-bg-opacity: 1;
+    background-color: white!important;
+}
+
+.card {
+
+    background-clip: border-box;
+    border: 2pxsolid rgba(0,0,0,.125);
+    border-radius: 1.5rem;
+}
+
+h2 {
+    display: block;
+    color: black!important;
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    
+}
+
+
+small{
+    color: black;
+}
+
+

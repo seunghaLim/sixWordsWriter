@@ -42,9 +42,14 @@ public class BoardService {
         return boardJpaRepository.findByKeyword(keyword);
     }
 
-    // 좋아요 높은 순 5개 조회 (페이징으로)
-    public List<Board> top5Likes(){
-        return boardJpaRepository.top5Likes();
+    // 좋아요 높은 순으로 조회
+    public List<Board> findByLikesCnt(){
+        return boardJpaRepository.findByLikesCnt();
+    }
+
+    // 최신순 조회
+    public List<Board> findByLatestDate(){
+        return boardJpaRepository.findByLatestDate();
     }
 
     // 글 삭제

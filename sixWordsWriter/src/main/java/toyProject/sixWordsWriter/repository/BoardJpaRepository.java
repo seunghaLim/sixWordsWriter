@@ -50,11 +50,15 @@ public class BoardJpaRepository {
     }
 
 
-    // 좋아요 높은 순 5개 조회 (페이징으로)
-    public List<Board> top5Likes(){
+    // 좋아요 높은 순으로 조회
+    public List<Board> findByLikesCnt(){
         return em.createQuery("select b from Board b order by b.likeCount desc", Board.class)
-                .setFirstResult(0)
-                .setMaxResults(5)
+                .getResultList();
+    }
+
+    // 최신 순으로 조회
+    public List<Board> findByLatestDate(){
+        return em.createQuery("select b from Board b order by b.writeDate desc", Board.class)
                 .getResultList();
     }
 

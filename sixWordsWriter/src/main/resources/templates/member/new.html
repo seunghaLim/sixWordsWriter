@@ -1,47 +1,33 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
-<head th:replace="fragments/header :: header">
+<head th:replace="fragments/header :: header(~{::title},~{::link},~{::script})">
     <link href="/RESOURCES/static/css/joinus.css" th:href="@{/resources/static/css/joinus.css}" rel="stylesheet">
     <title>회원가입</title>
+    <script></script>
 </head>
-<!-- 헤더 -->
-<!--
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-      <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-        <span class="fs-4">Simple header</span>
-      </a>
 
-      <ul class="nav nav-pills">
-        <li class="nav-item"><a href="#" class="nav-link">회원가입</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">로그인</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">글쓰기</a></li>
-      </ul>
-    </header>
--->
+</html>
 <body class="text-center">
 <main class="form-signin">
-    <form>
-        <img class="mb-4" src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-        <h1 class="h3 mb-3 fw-normal">Please join us</h1>
-
+    <!-- input 태그에서 type 속성 뭔데 뭐하는애인데 -->
+    <form th:action="@{/member/new}" th:object="${member}" method="post">
+        <img class="mb-1" src="https://i.ibb.co/Dz5Gtzg/image.png" alt="image" width="150" height="150">
+        <h1 class="h5 mb-3 fw-bold">가입하고 직접 글을 써보라냥!</h1>
         <div class="form-floating">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Email address</label>
+            <input th:field="*{loginId}" type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">아이디</label>
         </div>
         <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-            <label for="floatingPassword">Password</label>
+            <input th:field="*{password}" type="text" class="form-control" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">비밀번호</label>
         </div>
         <div class="form-floating ">
-            <input type="text" class="form-control" id="floatingText" placeholder="닉네임">
+            <input th:field="*{name}" type="text" class="form-control" id="floatingText" placeholder="닉네임">
             <label for="floatingInput">닉네임</label>
         </div>
-
-        <button class="w-100 btn btn-lg btn-primary" type="submit">회원가입</button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit" th:type="submit"  >회원가입</button>
         <p class="mt-5 mb-3 text-muted"></p>
     </form>
 </main>
 </body>
-</html>

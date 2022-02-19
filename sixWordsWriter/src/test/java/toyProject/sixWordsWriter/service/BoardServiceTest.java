@@ -89,7 +89,7 @@ public class BoardServiceTest {
     }
 
 
-    @Test
+    //@Test
     public void 좋아요탑5조회(){
 
         Member member1 = getMember("test1", "test2", "test2", Role.ADMIN);
