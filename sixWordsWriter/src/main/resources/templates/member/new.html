@@ -11,7 +11,7 @@
 <body class="text-center">
 <main class="form-signin">
     <!-- input 태그에서 type 속성 뭔데 뭐하는애인데 -->
-    <form th:action="@{/member/new}" th:object="${member}" method="post">
+    <form th:action="@{/member/new}" th:object="${member}" th:method="post">
         <img class="mb-1" src="https://i.ibb.co/Dz5Gtzg/image.png" alt="image" width="150" height="150">
         <h1 class="h5 mb-3 fw-bold">가입하고 직접 글을 써보라냥!</h1>
         <div class="form-floating">
@@ -19,7 +19,7 @@
             <label for="floatingInput">아이디</label>
         </div>
         <div class="form-floating">
-            <input th:field="*{password}" type="text" class="form-control" id="floatingPassword" placeholder="Password">
+            <input th:field="*{password}" type="password" class="form-control" id="floatingPassword" placeholder="Password">
             <label for="floatingPassword">비밀번호</label>
         </div>
         <div class="form-floating ">

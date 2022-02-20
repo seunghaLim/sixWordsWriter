@@ -6,12 +6,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class MemberDto {
+public class LoginDto {
 
     @NotBlank
-    private String name;
+    String loginId;
+
     @NotBlank
-    private String loginId;
-    @NotBlank
-    private String password;
+    String password;
 }

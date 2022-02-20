@@ -3,7 +3,7 @@ package toyProject.sixWordsWriter.annotation;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class sixWordsValidator implements ConstraintValidator<sixWords, String> {
+public class sixWordsValidator implements ConstraintValidator<wordsLimit, String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
@@ -19,8 +19,6 @@ public class sixWordsValidator implements ConstraintValidator<sixWords, String> 
         } else {
             return false;
         }
-
-
 
     }
 }

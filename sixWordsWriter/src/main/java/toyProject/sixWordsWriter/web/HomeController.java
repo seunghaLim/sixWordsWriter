@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import toyProject.sixWordsWriter.domain.Board;
+import toyProject.sixWordsWriter.domain.Member;
 import toyProject.sixWordsWriter.service.BoardService;
 
 import java.util.List;
@@ -16,14 +17,25 @@ public class HomeController {
     private final BoardService boardService;
 
     @GetMapping("/")
-    public String home(Model model){
+    public String home(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
+                       Model model){
+
+        if(loginMember == null){
+
+            List<Board> orderedByL = boardService.findByLikesCnt();
+            List<Board> orderedByD = boardService.findByLatestDate();
+            model.addAttribute("orderedByL", orderedByL);
+            model.addAttribute("orderedByD", orderedByD);
+
+            return "home";
+        }
 
         List<Board> orderedByL = boardService.findByLikesCnt();
         List<Board> orderedByD = boardService.findByLatestDate();
         model.addAttribute("orderedByL", orderedByL);
         model.addAttribute("orderedByD", orderedByD);
 
-        return "home";
+        return "loginHome";
     }
 
 

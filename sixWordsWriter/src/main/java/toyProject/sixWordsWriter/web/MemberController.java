@@ -38,8 +38,6 @@ public class MemberController {
             return "redirect:/member/new";
         }
 
-        log.info("memberDto = " + dto);
-
         Member member = new Member();
         member.setLoginId(dto.getLoginId());
         member.setName(dto.getName());
@@ -55,16 +53,15 @@ public class MemberController {
 
     }
 
-    @GetMapping("/member/login")
-    public String login(){
-        return "member/login";
-    }
-
     @GetMapping("/member/afternew/{memberName}")
     public String afterJoin(@PathVariable("memberName") String memberName, Model model){
         model.addAttribute("memberName", memberName);
         return "member/afternew";
     }
+
+
+
+
 
 
 }

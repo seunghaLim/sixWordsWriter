@@ -27,6 +27,8 @@ public class MemberServiceTest {
     @Autowired
     MemberJpaRepository memberJpaRepository;
 
+    @Autowired
+    LoginService loginService;
     @Test
     public void 회원가입() {
 
@@ -79,6 +81,17 @@ public class MemberServiceTest {
         org.assertj.core.api.Assertions.fail("예외가 발생해야 한다");
 
     }
+
+    @Test
+    public void 로그인(){
+        Member member1 = getMember("test1", "test1", "test1", Role.ADMIN);
+        memberService.join(member1);
+
+
+
+
+    }
+
 
 
     private Member getMember(String loginId, String password, String name, Role role) {

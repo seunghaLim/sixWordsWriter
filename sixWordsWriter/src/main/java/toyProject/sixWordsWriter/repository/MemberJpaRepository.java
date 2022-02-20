@@ -21,7 +21,7 @@ public class MemberJpaRepository {
         return member;
     }
 
-    // id로 회원 찾기 - 로그인할 때 사용
+    // id로 회원 찾기
     public Member findById(Long id){
         return em.find(Member.class, id);
     }
@@ -36,6 +36,8 @@ public class MemberJpaRepository {
                     .getSingleResult();
 
         } catch (NoResultException e){
+            log.info("db에서 못찾았음");
+            System.out.println("db에서 못찾았음");
             return null;
         }
         return findMember;

@@ -1,17 +1,18 @@
 package toyProject.sixWordsWriter.dto;
 
 import lombok.Data;
+import toyProject.sixWordsWriter.domain.Member;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import toyProject.sixWordsWriter.annotation.wordsLimit;
 
 @Data
-public class MemberDto {
+public class BoardDto {
+
 
     @NotBlank
-    private String name;
-    @NotBlank
-    private String loginId;
-    @NotBlank
-    private String password;
+    @wordsLimit
+    private String content;
 }
+
