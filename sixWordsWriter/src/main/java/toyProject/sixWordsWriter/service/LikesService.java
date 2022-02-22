@@ -37,9 +37,7 @@ public class LikesService {
             return likes;
 
         } else {
-
             throw new IllegalStateException("이미 좋아요 한 게시글입니다");
-
         }
 
     }

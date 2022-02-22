@@ -11,24 +11,9 @@
 
   <title>6단어 소설가</title>
 </head>
-<!-- 헤더 -->
-<!--
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-      <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-        <span class="fs-4">Simple header</span>
-      </a>
-
-      <ul class="nav nav-pills">
-        <li class="nav-item"><a href="#" class="nav-link">회원가입</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">로그인</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">글쓰기</a></li>
-      </ul>
-    </header>
--->
   <body class="text-center">
   <main class="form-signin">
-    <form th:action="@{/member/login}" th:object="${loginForm}" th:method="post">
+    <form action="~" th:action th:object="${loginForm}" th:method="post">
       <img class="mb-1" src="https://i.ibb.co/QK96b5Q/image.png" alt="image" width="150" height="150">
       <h1 class="h5 mb-3 fw-bold">로그인해라옹</h1>
       <div class="form-floating">

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<header class="d-flex flex-wrap justify-content-center py-3 mb-4 mx-5 border-bottom" th:fragment="login_body_header">
+<header th:fragment="login_body_header" class="d-flex flex-wrap justify-content-center py-3 mb-4 mx-5 border-bottom" th:fragment="login_body_header">
     <a href="#" th:href="@{/}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
         <span class="home fs-4">6단어 소설가</span>
     </a>
@@ -8,6 +8,5 @@
     <ul class="nav nav-pills">
         <li class="nav-item"><a href="#" th:href="@{/member/logout}" class="nav-link">로그아웃</a></li>
         <li class="nav-item"><a href="#" th:href="@{/board/new}" class="nav-link">글쓰기</a></li>
-        <li class="nav-item"><a href="#" th:href="@{#}" class="nav-link">마이페이지</a></li>
     </ul>
 </header>

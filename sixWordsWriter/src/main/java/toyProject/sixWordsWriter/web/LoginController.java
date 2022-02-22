@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import toyProject.sixWordsWriter.SessionConst;
 import toyProject.sixWordsWriter.domain.Member;
 import toyProject.sixWordsWriter.dto.LoginDto;
@@ -34,6 +35,7 @@ public class LoginController {
 
     @PostMapping("/member/login")
     public String loginForm(@Validated @ModelAttribute("loginForm") LoginDto dto, BindingResult bindingResult,
+                            @RequestParam(name="redirectURL", defaultValue = "/") String redirectURL,
                             HttpServletRequest request){
 
         if (bindingResult.hasErrors()){
@@ -54,7 +56,9 @@ public class LoginController {
         HttpSession session = request.getSession(true);
         session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
 
-        return "redirect:/";
+
+        log.info("redirectURL = " + redirectURL);
+        return "redirect:" + redirectURL;
     }
 
     @GetMapping("/member/logout")

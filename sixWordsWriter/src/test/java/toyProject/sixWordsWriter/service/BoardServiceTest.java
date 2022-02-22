@@ -135,17 +135,17 @@ public class BoardServiceTest {
         likesService.like(member3.getId(), board1.getId());
 
 
-        List<Board> top5likes = boardService.top5Likes();
+//        List<Board> top5likes = boardService.top5Likes();
 
         int i = 1;
-        for (Board top5like : top5likes) {
-            System.out.println(i + "위");
-            System.out.println("게시글 내용 " + top5like.getContent());
-            System.out.println("게시글 작성자 로그인id " + top5like.getMember().getLoginId());
-            System.out.println("게시글 좋아요 수 " + top5like.getLikeCount());
-            System.out.println("\n");
-            i = i+1;
-        }
+//        for (Board top5like : top5likes) {
+//            System.out.println(i + "위");
+//            System.out.println("게시글 내용 " + top5like.getContent());
+//            System.out.println("게시글 작성자 로그인id " + top5like.getMember().getLoginId());
+//            System.out.println("게시글 좋아요 수 " + top5like.getLikeCount());
+//            System.out.println("\n");
+//            i = i+1;
+//        }
         // 3, 2, 1, 5, 4 순으로 출력되어야 함
 
 

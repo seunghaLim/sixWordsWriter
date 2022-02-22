@@ -1,5 +1,6 @@
 package toyProject.sixWordsWriter.web;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -8,19 +9,23 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import toyProject.sixWordsWriter.domain.Board;
 import toyProject.sixWordsWriter.domain.Role;
 import toyProject.sixWordsWriter.dto.MemberDto;
 import toyProject.sixWordsWriter.domain.Member;
+import toyProject.sixWordsWriter.service.BoardService;
 import toyProject.sixWordsWriter.service.MemberService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Slf4j
 public class MemberController {
 
     private final MemberService memberService;
+    private final BoardService boardService;
 
     @GetMapping("/member/new")
     public String createJoinForm(Model model){
@@ -58,6 +63,21 @@ public class MemberController {
         model.addAttribute("memberName", memberName);
         return "member/afternew";
     }
+
+    @GetMapping("/member/{id}")
+    public String createMypageForm(@PathVariable("id") Long memberId, Model model){
+
+        List<Board> writeBoards = boardService.findByMemberId(memberId);
+        List<Board> likesBoard = boardService.findLikesBoard(memberId);
+
+        model.addAttribute("writeBoards", writeBoards);
+        model.addAttribute("likeBoards", likesBoard);
+        model.addAttribute("memberId", memberId);
+
+        return "member/mypage";
+
+    }
+
 
 
 

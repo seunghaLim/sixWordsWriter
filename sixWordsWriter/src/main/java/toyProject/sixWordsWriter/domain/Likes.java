@@ -22,6 +22,9 @@ public class Likes {
     @JoinColumn(name = "board_id")
     private Board board;
 
+//    // 좋아요 체크값 1이면 누른거 0이면 안누른거
+//    private int check;
+
     /// 연관관계 메서드 - 좋아요 생성할 때 호출해야함
     public void setBoard(Board board){
         this.board = board;
@@ -33,7 +36,6 @@ public class Likes {
 
         Likes likes = new Likes();
         likes.setMember(member);
-//        likes.setBoard(board);
 
         //연관관계 추가
         likes.setBoard(board);

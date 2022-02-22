@@ -1,5 +1,6 @@
 package toyProject.sixWordsWriter.repository;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import toyProject.sixWordsWriter.domain.Board;
 
@@ -58,6 +59,7 @@ public class BoardJpaRepository {
 
     // 최신 순으로 조회
     public List<Board> findByLatestDate(){
+
         return em.createQuery("select b from Board b order by b.writeDate desc", Board.class)
                 .getResultList();
     }
@@ -66,7 +68,6 @@ public class BoardJpaRepository {
     public void delete(Long id){
         Board findBoard= em.find(Board.class, id);
         // 좋아요도 삭제해야함
-
         em.remove(findBoard);
     }
 
