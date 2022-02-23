@@ -6,8 +6,8 @@ import lombok.Setter;
 @Getter @Setter
 public class Pagination {
 
-    private int pageSize;
-    private int blockSize;
+    private int pageSize = 9;
+    private int blockSize = 5;
     private int page = 1;
     private int block = 1;
     private int totalListCnt;

@@ -43,13 +43,13 @@ public class BoardService {
     }
 
     // 좋아요 높은 순으로 조회
-    public List<Board> findByLikesCnt(){
-        return boardJpaRepository.findByLikesCnt();
+    public List<Board> findByLikesCnt(int startIndex, int pageSize){
+        return boardJpaRepository.findByLikesCnt(startIndex, pageSize);
     }
 
     // 최신순 조회
-    public List<Board> findByLatestDate(){
-        return boardJpaRepository.findByLatestDate();
+    public List<Board> findByLatestDate(int startIndex, int pageSize){
+        return boardJpaRepository.findByLatestDate(startIndex, pageSize);
     }
 
     // 글 삭제
@@ -64,6 +64,7 @@ public class BoardService {
     }
 
 
-
-
+    public List<Board> findAll() {
+        return boardJpaRepository.findAll();
+    }
 }

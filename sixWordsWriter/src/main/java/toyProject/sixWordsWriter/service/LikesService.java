@@ -11,6 +11,10 @@ import toyProject.sixWordsWriter.repository.BoardJpaRepository;
 import toyProject.sixWordsWriter.repository.LikesJpaRepository;
 import toyProject.sixWordsWriter.repository.MemberJpaRepository;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Service
 @Transactional
 @AllArgsConstructor
@@ -30,11 +34,11 @@ public class LikesService {
         // 해당 member가 해당 게시글에 좋아요를 누른 적 있는지 확인
         if (isNotAlreadyLike(findMember, findBoard)) {
 
-            Likes likes = Likes.createLike(findMember, findBoard);
-            likesJpaRepository.like(likes);
+            Likes like = Likes.createLike(findMember, findBoard);
+            Likes newLike = likesJpaRepository.like(like);
             findBoard.addLikeCount();
 
-            return likes;
+            return newLike;
 
         } else {
             throw new IllegalStateException("이미 좋아요 한 게시글입니다");
@@ -61,6 +65,23 @@ public class LikesService {
             return false;
         }
 
+    }
+
+    // 회원이 좋아요한 보드의 아이디 가져오기
+    public Map<Long, Integer> getLikeBoardId(Long memberId, List<Board> boards) {
+        List<Board> likesBoard = boardJpaRepository.findLikesBoard(memberId);
+        Map<Long, Integer> myLikesBoardId = new HashMap<>();
+
+        for (Board board : boards) {
+            for (Board likeBoard : likesBoard) {
+                if (board.getId() == likeBoard.getId()){
+                    myLikesBoardId.put(board.getId(), 1);
+                } else {
+                    myLikesBoardId.put(board.getId(), 0);
+                }
+            }
+        }
+        return myLikesBoardId;
     }
 
 

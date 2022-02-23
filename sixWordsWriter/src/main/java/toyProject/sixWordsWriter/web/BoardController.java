@@ -12,10 +12,13 @@ import toyProject.sixWordsWriter.domain.Board;
 import toyProject.sixWordsWriter.domain.Member;
 import toyProject.sixWordsWriter.dto.BoardDto;
 import toyProject.sixWordsWriter.service.BoardService;
+import toyProject.sixWordsWriter.service.LikesService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -24,6 +27,7 @@ import java.time.LocalDateTime;
 public class BoardController {
 
     private final BoardService boardService;
+    private final LikesService likesService;
 
     @GetMapping("/board/new")
     public String createWriteForm(Model model,
@@ -59,17 +63,25 @@ public class BoardController {
     }
 
     @GetMapping("/board")
-    public String board(@RequestParam("boardId") Long boardId, Model model){
+    public String board(@RequestParam("boardId") Long boardId,
+                        @SessionAttribute(name = "loginMember", required = false) Member loginMember,
+                        Model model){
 
         Board findBoard = boardService.findByBoardId(boardId);
-
-        if(findBoard == null){
-            throw new IllegalStateException("글을 찾을 수 없습니다");
+        model.addAttribute("board", findBoard);
+        
+        if(loginMember == null){
+            return "board/board";
         }
 
-        model.addAttribute("board", findBoard);
+        List<Board> boards = boardService.findAll();
+        Map<Long, Integer> myLikeBoardId = likesService.getLikeBoardId(loginMember.getId(), boards);
 
-        return "board/board";
+        model.addAttribute("memberId", loginMember.getId());
+        model.addAttribute("myLikeBoardId", myLikeBoardId);
+
+
+        return "board/loginBoard";
     }
 
     @GetMapping("/board/edit")

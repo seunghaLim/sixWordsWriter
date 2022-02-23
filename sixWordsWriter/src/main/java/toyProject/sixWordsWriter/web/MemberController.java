@@ -14,10 +14,12 @@ import toyProject.sixWordsWriter.domain.Role;
 import toyProject.sixWordsWriter.dto.MemberDto;
 import toyProject.sixWordsWriter.domain.Member;
 import toyProject.sixWordsWriter.service.BoardService;
+import toyProject.sixWordsWriter.service.LikesService;
 import toyProject.sixWordsWriter.service.MemberService;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @AllArgsConstructor
@@ -26,6 +28,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final BoardService boardService;
+    private final LikesService likesService;
 
     @GetMapping("/member/new")
     public String createJoinForm(Model model){
@@ -69,9 +72,11 @@ public class MemberController {
 
         List<Board> writeBoards = boardService.findByMemberId(memberId);
         List<Board> likesBoard = boardService.findLikesBoard(memberId);
+        Map<Long, Integer> myLikeBoardId = likesService.getLikeBoardId(memberId, writeBoards);
 
         model.addAttribute("writeBoards", writeBoards);
         model.addAttribute("likeBoards", likesBoard);
+        model.addAttribute("myLikeBoardId", myLikeBoardId);
         model.addAttribute("memberId", memberId);
 
         return "member/mypage";

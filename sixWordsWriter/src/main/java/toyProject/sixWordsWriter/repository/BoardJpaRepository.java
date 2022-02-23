@@ -24,6 +24,12 @@ public class BoardJpaRepository {
         }
     }
 
+    // 전체조회
+    public List<Board> findAll(){
+        return em.createQuery("select b from Board b", Board.class)
+                .getResultList();
+    }
+
     // 게시글 id로 게시글 찾기
     public Board findByBoardId(Long boardId) {
         return em.find(Board.class, boardId);
@@ -52,15 +58,19 @@ public class BoardJpaRepository {
 
 
     // 좋아요 높은 순으로 조회
-    public List<Board> findByLikesCnt(){
+    public List<Board> findByLikesCnt(int startIndex, int pageSize){
         return em.createQuery("select b from Board b order by b.likeCount desc", Board.class)
+                .setFirstResult(startIndex)
+                .setMaxResults(pageSize)
                 .getResultList();
     }
 
     // 최신 순으로 조회
-    public List<Board> findByLatestDate(){
+    public List<Board> findByLatestDate(int startIndex, int pageSize){
 
         return em.createQuery("select b from Board b order by b.writeDate desc", Board.class)
+                .setFirstResult(startIndex)
+                .setMaxResults(pageSize)
                 .getResultList();
     }
 

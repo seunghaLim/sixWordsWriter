@@ -9,9 +9,36 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script type="text/javascript">
       $(document).ready(function() {
+        var iconId;
+
         $('i').click(function() {
-          alert("로그인이 필요한 서비스입니다.");
-        });
+          var likeClass = $(this).attr( 'class' );
+          var boardId = $(this).attr( 'name' );
+          iconId = $(this).attr( 'id' ); // 클릭한 아이콘 아이디 값 저장
+
+          if (likeClass == 'fa-solid fa-heart') {  // 하트가 눌러져 있다면 -> 취소로직
+            var likeCheck = 1;
+            $(this).attr('class', 'fa-regular fa-heart');
+          } else if (likeClass == 'fa-regular fa-heart') { // 하트가 안눌러져 있다면 -> 누르는 로직
+            var likeCheck = 0;
+            $(this).attr('class', 'fa-solid fa-heart');
+
+          }
+
+          $.ajax({
+            url: "/like",
+            data: {
+              likeCheck : likeCheck,
+              boardId : boardId,
+            },
+            type: "POST",
+
+            success: function(updateLikeCnt) {
+              $('#'+ iconId ).text(updateLikeCnt);
+            }
+
+          });
+        })
       });
     </script>
   </head>
@@ -29,9 +56,12 @@
                  <small th:text="*{member.name}">작성자</small>
                </li>
                <div>
-                 <li class="d-flex align-items-center mx-2">
-                   <i class="fa-regular fa-heart" th:name="${board.id}"
-                      th:text="${board.likeCount}" style="color: red;">10</i>
+                 <li class="d-flex align-items-center mx-2" th:with="key=${board.id}">
+                   <i th:id="'iconOrderedByD_' + ${board.id}"
+                      th:class="${myLikeBoardId.get(key) == 1} ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"
+                      th:name="${board.id}"
+                      th:text="${board.likeCount}"
+                      style="color: red;">10</i>
                  </li>
                </div>
              </ul>
@@ -40,8 +70,8 @@
        </div>
      </div>
      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-       <button th:onclick="|location.href='@{/}'|" class="btn btn-primary me-md-2" type="button">삭제</button>
-       <button th:onclick="|location.href='@{/member/new}'|" class="btn btn-primary" type="button">수정</button>
+       <button th:onclick="|location.href= '@{/}'|" class="btn btn-primary me-md-2" type="button">삭제</button>
+       <button th:onclick="|location.href ='@{/member/new}'|" class="btn btn-primary" type="button">수정</button>
      </div>
      <div th:replace="fragments/footer :: footer"></div>
    </div>
