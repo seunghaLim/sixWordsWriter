@@ -29,7 +29,7 @@ public class LikeController {
     @ResponseBody
     public int like(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
             @RequestParam("likeCheck") int likeCheck,
-            @RequestParam("boardId") Long boardId, Model model){
+            @RequestParam("boardId") Long boardId){
 
         log.info("likeCheck = " + likeCheck);
         log.info("boardId = " + boardId);

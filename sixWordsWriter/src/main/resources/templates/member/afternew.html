@@ -13,13 +13,13 @@
   <body class = "text-center">
   <div class="px-4 py-5 my-5 text-center">
     <img class="d-block mx-auto" src="https://i.ibb.co/rHNXzPh/image.png" alt="" width="200" height="200">
-    <h1 class="display-5 fw-bold mt-1 mb-5 mx-5 my-5" th:text="${memberName}">ㅇㅇㅇ</h1>
-    <h1 class="display-5 fw-bold mt-1 mb-5 mx-5 my-5">님, 환영한다옹!</h1>
+    <span class="display-5 fw-bold" th:text="${memberName}">ㅇㅇㅇ</span>
+    <span class="display-5 fw-bold mt-1 mb-5my-5">님, 환영한다옹!</span>
     <div class="col-lg-6 mx-auto">
       <p class="m-5 fw-nomal fs-5">나, 글 쓰는 ㅇㅇ과 함께 ㅇㅇ하러 가보자옹 </p>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-        <button type="button" class="btn btn-primary btn-lg px-2 gap-3">글 보러 가기</button>
-        <button type="button" class="btn btn-primary btn-lg px-2 gap-3">글 쓰러 가기</button>
+        <button th:onclick="'location.href=' + '\'' + @{/} + '\''" type="button"  class="btn btn-primary btn-lg px-2 gap-3">글 보러 가기</button>
+        <button th:onclick="'location.href=' + '\'' + @{/member/login} + '\''" type="button" class="btn btn-primary btn-lg px-2 gap-3">글 쓰러 가기</button>
       </div>
     </div>
   </div>

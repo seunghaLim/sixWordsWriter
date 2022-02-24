@@ -67,4 +67,8 @@ public class BoardService {
     public List<Board> findAll() {
         return boardJpaRepository.findAll();
     }
+
+    public int findAllCnt() {
+        return boardJpaRepository.findAllCnt();
+    }
 }

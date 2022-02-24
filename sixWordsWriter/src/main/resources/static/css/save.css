@@ -1,3 +1,10 @@
 .form-control {
-  /*width: 40%;*/
+    margin: 0 auto;
+    float: none;
+    width: 40%;
+}
+
+.field-error {
+    border-color: #dc3545;
+    color: #dc3545;
 }

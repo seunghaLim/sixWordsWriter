@@ -3,10 +3,11 @@
 <html lang="en">
   <head th:replace="fragments/header :: header(~{::title},~{::link},~{::script})">
     <title>6단어 소설가</title>
-    <link href="/RESOURCES/static/css/mypage.css" th:href="@{/static/css/mypage.css}" rel="stylesheet"/>
+    <link href="/RESOURCES/static/css/mypage.css" th:href="@{/css/mypage.css}" rel="stylesheet"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"/>
     <script src="https://kit.fontawesome.com/843c438b04.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript">
       $(document).ready(function() {
 
@@ -78,7 +79,7 @@
                 <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg">
                   <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
                     <a th:href="@{/board(boardId=${writeBoard.id})}" style="text-decoration-line: none;">
-                     <h2 class="mt-5 mb-5 display-6 lh-1 fw-bold" th:text="${writeBoard.content}" >For sale: tow shose, never used.</h2>
+                     <h2 class="content mt-5 mb-5 display-6 fw-bold" th:text="${writeBoard.content}" >For sale: tow shose, never used.</h2>
                     </a>
                      <ul class="d-flex list-unstyled mt-auto">
                       <li class="me-auto">
@@ -91,7 +92,6 @@
                              th:name="${writeBoard.id}"
                              th:text="${writeBoard.likeCount}"
                              style="color: red;">10</i>
-                          <small class="mx-1" th:text="${writeBoard.likeCount}">10</small>
                         </li>
                       </div>
                     </ul>
@@ -107,7 +107,7 @@
                   <a th:href="@{/board(boardId=${likeBoard.id})}" style="text-decoration-line: none;">
                     <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
                       <a th:href="@{/board(boardId=${likeBoard.id})}" style="text-decoration-line: none;">
-                       <h2 class="mt-5 mb-5 display-6 lh-1 fw-bold" th:text="${likeBoard.content}" >For sale: tow shose, never used.</h2>
+                       <h2 class="content mt-5 mb-5 display-6 fw-bold" th:text="${likeBoard.content}" >For sale: tow shose, never used.</h2>
                       </a>
                        <ul class="d-flex list-unstyled mt-auto">
                         <li class="me-auto">
@@ -130,20 +130,8 @@
             </div>
           </div>
         </div>
-      <div class="container">
-        <footer class="py-3 my-4">
-          <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
-          </ul>
-          <p class="text-center text-muted">© 2021 Company, Inc</p>
-        </footer>
+        <div th:replace="fragments/login_footer :: login_footer"></div>
       </div>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    </div>
     </div>
   </body>
 </html>

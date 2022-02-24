@@ -14,6 +14,7 @@ import toyProject.sixWordsWriter.dto.BoardDto;
 import toyProject.sixWordsWriter.service.BoardService;
 import toyProject.sixWordsWriter.service.LikesService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
@@ -58,6 +59,7 @@ public class BoardController {
         boardService.save(board);
 
         redirectAttributes.addAttribute("boardId", board.getId());
+
         return "redirect:/board";
 
     }
@@ -80,7 +82,6 @@ public class BoardController {
         model.addAttribute("memberId", loginMember.getId());
         model.addAttribute("myLikeBoardId", myLikeBoardId);
 
-
         return "board/loginBoard";
     }
 
@@ -91,7 +92,7 @@ public class BoardController {
 
         Board findBoard = boardService.findByBoardId(boardId);
 
-        if(!isLoginMemberhteWriter(loginMember, findBoard.getMember())){
+        if(!isLoginMemberhteWriter(loginMember.getId(), findBoard.getMember().getId())){
             throw new IllegalStateException("수정 권한이 없습니다.");
         }
 
@@ -116,22 +117,31 @@ public class BoardController {
         return "redirect:/board";
     }
 
-    private boolean isLoginMemberhteWriter(Member loginMember, Member writer) {
-        return loginMember.equals(writer);
+    private boolean isLoginMemberhteWriter(Long loginMemberId, Long writerId) {
+
+        return loginMemberId.equals(writerId);
     }
 
     @GetMapping("/board/delete")
-    public String createDeleteForm(){
+    public String createDeleteForm(@RequestParam("boardId") Long boardId, Model model){
+
+        model.addAttribute("boardId", boardId);
+
         return "board/delete";
     }
 
     @PostMapping("/board/delete")
-    public String delete(@RequestParam @Valid @NotBlank String password,
-                         @RequestParam("boardId") Long boardId,
+    public String delete(@RequestParam("boardId") Long boardId,
                          @SessionAttribute(name = "loginMember", required = false) Member loginMember){
 
-        if(!loginMember.getPassword().equals(password)){
-            throw new IllegalStateException("비밀번호가 일치하지 않습니다");
+
+        log.info("boardId " + boardId);
+        log.info("삭제하려는 멤버 아이디 " + loginMember.getId());
+
+        Board findBoard = boardService.findByBoardId(boardId);
+
+        if( !loginMember.getId().equals(findBoard.getMember().getId()) ){
+            throw new IllegalStateException("삭제할 권한이 없습니다");
         }
 
         boardService.delete(boardId);

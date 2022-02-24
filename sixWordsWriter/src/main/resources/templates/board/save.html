@@ -3,8 +3,8 @@
 <html lang="en">
  <head th:replace="fragments/header :: header(~{::title},~{::link},~{::script})">
       <title>6단어 글 작성</title>
-      <link href="/RESOURCES/static/css/save.css" th:href="@{/resources/static/css/save.css}" rel="stylesheet" type="text/css"/>
       <script src="https://kit.fontawesome.com/843c438b04.js" crossorigin="anonymous"></script>
+     <link href="/RESOURCES/static/css/save.css" th:href="@{/css/save.css}" rel="stylesheet" type="text/css" >
  </head>
   <body>
    <!-- 헤더 -->
@@ -12,7 +12,6 @@
        <a href="#" th:href="@{/}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
            <span class="home fs-4">6단어 소설가</span>
        </a>
-
        <ul class="nav nav-pills">
            <li class="nav-item"><a href="#" th:href="@{/member/logout}" class="nav-link">로그아웃</a></li>
            <li class="nav-item"><a href="#" th:href="@{/board/new}" class="nav-link">글쓰기</a></li>
@@ -22,11 +21,18 @@
         <div class="container">
             <form th:action th:method="post" th:object="${board}" class="mt-5">
               <div class="mx-auto">
-               <textarea th:field="*{content}" class="form-control" style="margin: 0 auto; float: none;" id="exampleFormControlTextarea1" rows=14></textarea>
+               <textarea th:field="*{content}" th:errorclass="field-error" class="form-control" id="exampleFormControlTextarea1" rows=14></textarea>
+                  <div class="field-error text-center" th:errors="*{content}">작성 오류</div>
               </div>
-              <div class="d-grid gap-2 col-1 mx-auto mt-4 mb-5">
-               <button class="btn btn-primary" type="submit">등록</button>
-              </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div  class="text-center">
+                                <button class="btn btn-primary" type="submit">등록</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
     <div th:replace="fragments/footer :: footer"></div>

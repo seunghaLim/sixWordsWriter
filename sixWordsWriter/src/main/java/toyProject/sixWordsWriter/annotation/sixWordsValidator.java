@@ -12,6 +12,7 @@ public class sixWordsValidator implements ConstraintValidator<wordsLimit, String
             return false;
         }
 
+        value = value.strip();
         String[] result = value.split(" ");
 
         if (result.length == 6){

@@ -25,14 +25,13 @@ public class HomeController {
 
     private final BoardService boardService;
     private final LikesService likesService;
-    private final BoardJpaRepository boardJpaRepository;
 
     @GetMapping("/")
     public String home(@SessionAttribute(name = "loginMember", required = false) Member loginMember,
                        Model model,
                        @RequestParam(defaultValue = "1") int page){
 
-        int totalListCnt = boardJpaRepository.findAllCnt();
+        int totalListCnt = boardService.findAllCnt();
         Pagination pagination = new Pagination(totalListCnt, page);
         int startIndex = pagination.getStartIndex();
         int pageSize = pagination.getPageSize();

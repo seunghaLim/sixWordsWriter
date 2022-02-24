@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
   <head th:replace="fragments/header :: header(~{::title},~{::link},~{::script})">
-    <link href="/RESOURCES/static/css/board.css" th:href="@{/resources/static/css/board.css}" rel="stylesheet" type="text/css" >
+    <link href="/RESOURCES/static/css/board.css" th:href="@{/css/board.css}" rel="stylesheet" type="text/css" >
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"/>
     <title>6단어 소설가</title>
     <script src="https://kit.fontawesome.com/843c438b04.js" crossorigin="anonymous"></script>
@@ -23,7 +23,7 @@
        <div th:object="${board}" class="col-5" style="margin: 0 auto; float: none;">
          <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" id="card">
            <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-             <h2 th:text="*{content}" class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold" >Short title, long jacket</h2>
+             <h2 th:text="*{content}" class="content mt-5 mb-4 display-6 fw-bold" >Short title, long jacket</h2>
              <ul class="d-flex list-unstyled mt-auto">
                <li class="me-auto">
                  <small th:text="*{member.name}">작성자</small>
@@ -39,9 +39,6 @@
          </div>
        </div>
      </div>
-     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-       <button th:onclick="|location.href='@{/}'|" class="btn btn-primary me-md-2" type="button">삭제</button>
-       <button th:onclick="|location.href='@{/member/new}'|" class="btn btn-primary" type="button">수정</button>
      </div>
      <div th:replace="fragments/footer :: footer"></div>
    </div>

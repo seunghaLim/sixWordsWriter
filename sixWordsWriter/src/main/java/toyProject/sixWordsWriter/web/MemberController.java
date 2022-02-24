@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import toyProject.sixWordsWriter.domain.Board;
+import toyProject.sixWordsWriter.domain.Pagination;
 import toyProject.sixWordsWriter.domain.Role;
 import toyProject.sixWordsWriter.dto.MemberDto;
 import toyProject.sixWordsWriter.domain.Member;
@@ -43,7 +44,7 @@ public class MemberController {
 
         if(bindingResult.hasErrors()){
             log.info("binding Error = " + bindingResult);
-            return "redirect:/member/new";
+            return "member/new";
         }
 
         Member member = new Member();

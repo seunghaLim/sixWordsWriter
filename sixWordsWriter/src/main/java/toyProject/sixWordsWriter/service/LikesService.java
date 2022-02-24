@@ -67,7 +67,7 @@ public class LikesService {
 
     }
 
-    // 회원이 좋아요한 보드의 아이디 가져오기
+    // 보드 아이디가 키, 좋아요 눌렀는지 안눌렀는지가 값  가져오기
     public Map<Long, Integer> getLikeBoardId(Long memberId, List<Board> boards) {
         List<Board> likesBoard = boardJpaRepository.findLikesBoard(memberId);
         Map<Long, Integer> myLikesBoardId = new HashMap<>();

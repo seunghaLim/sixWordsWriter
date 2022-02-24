@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head th:replace="fragments/header :: header(~{::title},~{::link},~{::script})">
-    <link href="/RESOURCES/static/css/joinus.css" th:href="@{/resources/static/css/joinus.css}" rel="stylesheet">
+    <link href="/RESOURCES/static/css/joinus.css" th:href="@{/css/joinus.css}" rel="stylesheet">
     <title>회원가입</title>
     <script></script>
 </head>
@@ -10,23 +10,25 @@
 </html>
 <body class="text-center">
 <main class="form-signin">
-    <!-- input 태그에서 type 속성 뭔데 뭐하는애인데 -->
     <form th:action="@{/member/new}" th:object="${member}" th:method="post">
         <img class="mb-1" src="https://i.ibb.co/Dz5Gtzg/image.png" alt="image" width="150" height="150">
         <h1 class="h5 mb-3 fw-bold">가입하고 직접 글을 써보라냥!</h1>
         <div class="form-floating">
-            <input th:field="*{loginId}" type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <input th:field="*{loginId}" th:errorclass="field-error" type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
             <label for="floatingInput">아이디</label>
+            <div class="field-error" th:errors="*{loginId}">아이디 오류</div>
         </div>
         <div class="form-floating">
-            <input th:field="*{password}" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <input th:field="*{password}" th:errorclass="field-error" type="password" class="form-control" id="floatingPassword" placeholder="Password">
             <label for="floatingPassword">비밀번호</label>
+            <div class="field-error" th:errors="*{password}">비번 오류</div>
         </div>
         <div class="form-floating ">
-            <input th:field="*{name}" type="text" class="form-control" id="floatingText" placeholder="닉네임">
+            <input th:field="*{name}" th:errorclass="field-error" type="text" class="form-control" id="floatingText" placeholder="닉네임">
             <label for="floatingInput">닉네임</label>
+            <div class="field-error" th:errors="*{name}">닉네임 오류</div>
         </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit" th:type="submit"  >회원가입</button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit" th:type="submit" >회원가입</button>
         <p class="mt-5 mb-3 text-muted"></p>
     </form>
 </main>
