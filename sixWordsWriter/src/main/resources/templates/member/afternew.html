@@ -16,10 +16,10 @@
     <span class="display-5 fw-bold" th:text="${memberName}">ㅇㅇㅇ</span>
     <span class="display-5 fw-bold mt-1 mb-5my-5">님, 환영한다옹!</span>
     <div class="col-lg-6 mx-auto">
-      <p class="m-5 fw-nomal fs-5">나, 글 쓰는 ㅇㅇ과 함께 ㅇㅇ하러 가보자옹 </p>
+      <p class="m-5 fw-nomal fs-5">나, 작가냥과 함께 글 쓰러 가보자옹</p>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
         <button th:onclick="'location.href=' + '\'' + @{/} + '\''" type="button"  class="btn btn-primary btn-lg px-2 gap-3">글 보러 가기</button>
-        <button th:onclick="'location.href=' + '\'' + @{/member/login} + '\''" type="button" class="btn btn-primary btn-lg px-2 gap-3">글 쓰러 가기</button>
+        <button th:onclick="'location.href=' + '\'' + @{/board/new} + '\''" type="button" class="btn btn-primary btn-lg px-2 gap-3">글 쓰러 가기</button>
       </div>
     </div>
   </div>

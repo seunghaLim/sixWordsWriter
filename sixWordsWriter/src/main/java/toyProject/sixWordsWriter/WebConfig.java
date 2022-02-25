@@ -5,7 +5,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import toyProject.sixWordsWriter.web.LoginCheckInterceptor;
 
-@Configuration
+//@Configuration
 public class WebConfig implements WebMvcConfigurer {
 
     @Override

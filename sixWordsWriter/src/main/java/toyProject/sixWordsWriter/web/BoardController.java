@@ -7,7 +7,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import toyProject.sixWordsWriter.NoAuthorizationEx;
 import toyProject.sixWordsWriter.domain.Board;
 import toyProject.sixWordsWriter.domain.Member;
 import toyProject.sixWordsWriter.dto.BoardDto;
@@ -29,6 +31,21 @@ public class BoardController {
 
     private final BoardService boardService;
     private final LikesService likesService;
+
+
+    @ExceptionHandler(NoAuthorizationEx.class)
+    public String HandlerException(Exception ex, HttpServletRequest request, Model model) {
+
+        model.addAttribute("exMessage", ex.getMessage());
+        model.addAttribute("queryParam", request.getQueryString());
+
+        log.info("exMessage = " + ex.getMessage());
+        log.info("queryParam = " + request.getQueryString());
+
+        return "error/NoAuthorizationEx-redirect";
+    }
+
+
 
     @GetMapping("/board/new")
     public String createWriteForm(Model model,
@@ -93,7 +110,7 @@ public class BoardController {
         Board findBoard = boardService.findByBoardId(boardId);
 
         if(!isLoginMemberhteWriter(loginMember.getId(), findBoard.getMember().getId())){
-            throw new IllegalStateException("수정 권한이 없습니다.");
+            throw new NoAuthorizationEx("수정 권한이 없습니다.");
         }
 
         model.addAttribute("board", findBoard);
@@ -141,7 +158,7 @@ public class BoardController {
         Board findBoard = boardService.findByBoardId(boardId);
 
         if( !loginMember.getId().equals(findBoard.getMember().getId()) ){
-            throw new IllegalStateException("삭제할 권한이 없습니다");
+            throw new NoAuthorizationEx("삭제할 권한이 없습니다");
         }
 
         boardService.delete(boardId);

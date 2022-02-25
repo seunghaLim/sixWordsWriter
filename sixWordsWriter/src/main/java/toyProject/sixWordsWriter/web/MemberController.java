@@ -9,6 +9,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import toyProject.sixWordsWriter.DuplicatedIdEx;
+import toyProject.sixWordsWriter.NoAuthorizationEx;
+import toyProject.sixWordsWriter.SessionConst;
 import toyProject.sixWordsWriter.domain.Board;
 import toyProject.sixWordsWriter.domain.Pagination;
 import toyProject.sixWordsWriter.domain.Role;
@@ -18,6 +21,8 @@ import toyProject.sixWordsWriter.service.BoardService;
 import toyProject.sixWordsWriter.service.LikesService;
 import toyProject.sixWordsWriter.service.MemberService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +36,18 @@ public class MemberController {
     private final BoardService boardService;
     private final LikesService likesService;
 
+    @ExceptionHandler(DuplicatedIdEx.class)
+    public String HandlerException(Exception ex, HttpServletRequest request, Model model) {
+
+        model.addAttribute("exMessage", ex.getMessage());
+        model.addAttribute("redirectURI", request.getRequestURI());
+
+        log.info("exMessage = " + ex.getMessage());
+        log.info("redirectURI = " + request.getRequestURI());
+
+        return "error/DuplicatedIdEx-redirect";
+    }
+
     @GetMapping("/member/new")
     public String createJoinForm(Model model){
 
@@ -40,7 +57,7 @@ public class MemberController {
 
     @PostMapping("/member/new")
     public String join(@Validated @ModelAttribute("member") MemberDto dto, BindingResult bindingResult,
-                       Model model, RedirectAttributes redirectAttributes){
+                       Model model, RedirectAttributes redirectAttributes, HttpServletRequest request){
 
         if(bindingResult.hasErrors()){
             log.info("binding Error = " + bindingResult);
@@ -51,9 +68,13 @@ public class MemberController {
         member.setLoginId(dto.getLoginId());
         member.setName(dto.getName());
         member.setPassword(dto.getPassword());
-        member.setRole(Role.ADMIN); // 나중에 운영자 계정과 구분하는거 추가
+        member.setRole(Role.ADMIN);
 
         memberService.join(member);
+
+        // 로그인 처리
+        HttpSession session = request.getSession(true);
+        session.setAttribute(SessionConst.LOGIN_MEMBER, member);
 
         redirectAttributes.addAttribute("memberName", member.getName());
         model.addAttribute("member", member);

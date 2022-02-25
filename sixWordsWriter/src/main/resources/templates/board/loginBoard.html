@@ -56,10 +56,10 @@
   </header>    <!-- 카드 -->
    <div class="container">
      <div class="row-4 align-items-stretch py-5 ">
-       <div th:object="${board}" class="col-5" style="margin: 0 auto; float: none;">
+       <div th:object="${board}" class="col-4" style="margin: 0 auto; float: none;">
          <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" id="card">
            <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-             <h2 th:text="*{content}" class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold" >Short title, long jacket</h2>
+             <h2 th:text="*{content}" class="pt-5 mt-5 mb-5 display-6 lh-1 fw-bold" >Short title, long jacket</h2>
              <ul class="d-flex list-unstyled mt-auto">
                <li class="me-auto">
                  <small th:text="*{member.name}">작성자</small>

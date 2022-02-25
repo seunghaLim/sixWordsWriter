@@ -18,7 +18,7 @@
            <li class="nav-item"><a href="#" th:href="@{/member/{id} (id=${memberId})}" class="nav-link">마이페이지</a></li>
        </ul>
    </header>
-        <div class="container">
+        <div class="container mb-5 mt-5">
             <form th:action th:method="post" th:object="${board}" class="mt-5">
               <div class="mx-auto">
                <textarea th:field="*{content}" th:errorclass="field-error" class="form-control" id="exampleFormControlTextarea1" rows=14></textarea>

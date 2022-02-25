@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import toyProject.sixWordsWriter.DuplicatedIdEx;
 import toyProject.sixWordsWriter.domain.Member;
 import toyProject.sixWordsWriter.repository.MemberJpaRepository;
 
@@ -36,7 +37,7 @@ public class MemberService {
         Member findMember = memberJpaRepository.findByLoginId(id);
 
         if (findMember !=null){
-            throw new IllegalStateException("이미 존재하는 id 입니다");
+            throw new DuplicatedIdEx("이미 존재하는 id 입니다");
         }
     }
 }

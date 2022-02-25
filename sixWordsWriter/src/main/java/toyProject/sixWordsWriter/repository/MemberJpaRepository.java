@@ -2,6 +2,7 @@ package toyProject.sixWordsWriter.repository;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+import toyProject.sixWordsWriter.FailedLoginEx;
 import toyProject.sixWordsWriter.domain.Member;
 
 import javax.persistence.EntityManager;
@@ -36,9 +37,9 @@ public class MemberJpaRepository {
                     .getSingleResult();
 
         } catch (NoResultException e){
-            log.info("db에서 못찾았음");
-            System.out.println("db에서 못찾았음");
-            return null;
+
+            throw new FailedLoginEx("존재하지 않는 아이디입니다.");
+
         }
         return findMember;
     }
