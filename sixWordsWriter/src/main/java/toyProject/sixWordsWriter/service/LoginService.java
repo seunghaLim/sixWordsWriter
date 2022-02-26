@@ -18,28 +18,21 @@ import javax.servlet.http.HttpServletRequest;
 public class LoginService {
 
 
-    @ExceptionHandler(FailedLoginEx.class)
-    public String HandlerException(Exception ex, HttpServletRequest request, Model model) {
-
-        model.addAttribute("exMessage", ex.getMessage());
-        model.addAttribute("redirectURI", request.getRequestURI());
-
-        log.info("exMessage = " + ex.getMessage());
-        log.info("redirectURI = " + request.getRequestURI());
-
-        return "error/DuplicatedIdEx-redirect";
-    }
-
     private final MemberJpaRepository memberJpaRepository;
 
     public Member login(String loginId, String password){
 
         // 중복 아이디 있어도 되는거 아님????
         Member member = memberJpaRepository.findByLoginId(loginId);
+
+        if (member == null){
+            throw new FailedLoginEx("존재하지 않는 아이디입니다");
+        }
+
         if (member.getPassword().equals(password)){
             return member;
         } else {
-            throw new FailedLoginEx("비밀번호가 일치하지 않습니다.");
+            throw new FailedLoginEx("아이디 또는 비밀번호가 일치하지 않습니다.");
         }
 
     }

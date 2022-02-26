@@ -41,4 +41,18 @@ body {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+  font-family:"굴림";
+}
+
+::placeholder {
+  font-family: 'NanumSquare', sans-serif;
+  opacity: 1; /* Firefox */
+}
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  font-family: 'NanumSquare', sans-serif;
+}
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  font-family: 'NanumSquare', sans-serif;
 }

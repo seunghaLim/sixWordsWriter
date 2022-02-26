@@ -22,14 +22,21 @@
         <div class="container">
             <form th:action th:method="post" th:object="${board}" class="mt-5">
               <div class="mx-auto">
-               <textarea th:field="*{content}" class="form-control" style="margin: 0 auto; float: none;" id="exampleFormControlTextarea1" rows=14></textarea>
+               <textarea th:field="*{content}" th:errorclass="field-error" class="form-control" style="margin: 0 auto; float: none;" id="exampleFormControlTextarea1" rows=14></textarea>
+                  <div class="field-error text-center" th:errors="*{content}">작성 오류</div>
               </div>
-              <div class="d-grid gap-2 col-1 mx-auto mt-4 mb-5">
-               <button class="btn btn-primary" type="submit">수정</button>
-              </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div  class="text-center m-5">
+                                <button class="btn btn-primary" type="submit">수정</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
-    <div th:replace="fragments/footer :: footer"></div>
+   <div th:replace="fragments/login_footer :: login_footer"></div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

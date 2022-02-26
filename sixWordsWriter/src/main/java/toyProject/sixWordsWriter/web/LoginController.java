@@ -7,10 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import toyProject.sixWordsWriter.FailedLoginEx;
 import toyProject.sixWordsWriter.SessionConst;
 import toyProject.sixWordsWriter.domain.Member;
 import toyProject.sixWordsWriter.dto.LoginDto;
@@ -26,6 +24,18 @@ import java.net.http.HttpRequest;
 public class LoginController {
 
     private final LoginService loginService;
+
+    @ExceptionHandler(FailedLoginEx.class)
+    public String HandlerException(Exception ex, HttpServletRequest request, Model model) {
+
+        model.addAttribute("exMessage", ex.getMessage());
+        model.addAttribute("redirectURI", request.getRequestURI());
+
+        log.info("exMessage = " + ex.getMessage());
+        log.info("redirectURI = " + request.getRequestURI());
+
+        return "error/DuplicatedIdEx-redirect";
+    }
 
     @GetMapping("/member/login")
     public String createLoginForm(@ModelAttribute("loginForm") LoginDto form){
@@ -47,11 +57,6 @@ public class LoginController {
         log.info("password = " + dto.getPassword());
 
         Member loginMember = loginService.login(dto.getLoginId(), dto.getPassword());
-
-        if(loginMember == null){
-            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다");
-            return "member/login";
-        }
 
         HttpSession session = request.getSession(true);
         session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);

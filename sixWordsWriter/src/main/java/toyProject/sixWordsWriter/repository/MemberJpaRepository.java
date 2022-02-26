@@ -38,7 +38,7 @@ public class MemberJpaRepository {
 
         } catch (NoResultException e){
 
-            throw new FailedLoginEx("존재하지 않는 아이디입니다.");
+            return null;
 
         }
         return findMember;

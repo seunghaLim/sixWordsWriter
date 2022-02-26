@@ -120,9 +120,17 @@ public class BoardController {
     }
 
     @PostMapping("/board/edit")
-    public String edit(@Validated @ModelAttribute("board") BoardDto dto,
+    public String edit(@Validated @ModelAttribute("board") BoardDto dto, BindingResult bindingResult,
                        @RequestParam("boardId") Long boardId,
                        RedirectAttributes redirectAttributes){
+
+        log.info("binding error = " + bindingResult);
+        log.info("dto = " + dto);
+
+        if(bindingResult.hasErrors()){
+            log.info("binding error = " + bindingResult);
+            return "board/edit" ;
+        }
 
         Board findBoard = boardService.findByBoardId(boardId);
 

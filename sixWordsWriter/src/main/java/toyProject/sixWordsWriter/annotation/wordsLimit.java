@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME) // 2
 @Constraint(validatedBy = sixWordsValidator.class) // 3
 public @interface wordsLimit {
-    String message() default "6단어로 입력해주세요"; // 4
+    String message() default "6개의 단어로 입력해주세요"; // 4
     Class[] groups() default {};
     Class[] payload() default {};
 }
