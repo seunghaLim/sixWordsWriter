@@ -37,7 +37,7 @@ public class BoardServiceTest {
     @Test
     public void 글조회(){
 
-        Member member1 = getMember("test1", "test1", "test1", Role.ADMIN);
+        Member member1 = getMember("test3", "test3", "test3", Role.ADMIN);
         Member member2 = getMember("test2", "test2", "test2", Role.ADMIN);
 
         memberService.join(member1);
@@ -53,10 +53,10 @@ public class BoardServiceTest {
         boardService.save(board3);
         boardService.save(board4);
 
-        List<Board> findBoards = boardService.findByName("test1");
+        List<Board> findBoards = boardService.findByName("test3");
 
         for (Board findBoard : findBoards) {
-            Assertions.assertThat(findBoard.getMember().getName()).isEqualTo("test1");
+            Assertions.assertThat(findBoard.getMember().getName()).isEqualTo("test3");
         }
 
     }
@@ -64,7 +64,7 @@ public class BoardServiceTest {
     @Test
     public void 키워드로조회(){
 
-        Member member1 = getMember("test1", "test1", "test1", Role.ADMIN);
+        Member member1 = getMember("test3", "test3", "test3", Role.ADMIN);
         Member member2 = getMember("test2", "test2", "test2", Role.ADMIN);
 
         memberService.join(member1);
@@ -88,76 +88,13 @@ public class BoardServiceTest {
 
     }
 
-
-    //@Test
-    public void 좋아요탑5조회(){
-
-        Member member1 = getMember("test1", "test2", "test2", Role.ADMIN);
-        Member member2 = getMember("test2", "test2", "test2", Role.ADMIN);
-        Member member3 = getMember("test3", "test2", "test2", Role.ADMIN);
-        Member member4 = getMember("test4", "test2", "test2", Role.ADMIN);
-        Member member5 = getMember("test5", "test2", "test2", Role.ADMIN);
-
-        memberService.join(member1);
-        memberService.join(member2);
-        memberService.join(member3);
-        memberService.join(member4);
-        memberService.join(member5);
-
-        Board board1 = getBoard(member1, "테스트1입니다");
-        Board board2 = getBoard(member2, "테스트2입니다");
-        Board board3 = getBoard(member1, "테스트3입니다");
-        Board board4 = getBoard(member2, "테스트4입니다");
-        Board board5 = getBoard(member2, "테스트5입니다");
-        Board board6 = getBoard(member2, "테스트6입니다");
-
-        boardService.save(board1);
-        boardService.save(board2);
-        boardService.save(board3);
-        boardService.save(board4);
-        boardService.save(board5);
-        boardService.save(board6);
-
-
-        likesService.like(member1.getId(), board3.getId());
-        likesService.like(member2.getId(), board3.getId());
-        likesService.like(member3.getId(), board3.getId());
-        likesService.like(member4.getId(), board3.getId());
-        likesService.like(member5.getId(), board3.getId());
-
-        likesService.like(member1.getId(), board2.getId());
-        likesService.like(member2.getId(), board2.getId());
-        likesService.like(member3.getId(), board2.getId());
-        likesService.like(member4.getId(), board2.getId());
-
-        likesService.like(member1.getId(), board1.getId());
-        likesService.like(member2.getId(), board1.getId());
-        likesService.like(member3.getId(), board1.getId());
-
-
-//        List<Board> top5likes = boardService.top5Likes();
-
-        int i = 1;
-//        for (Board top5like : top5likes) {
-//            System.out.println(i + "위");
-//            System.out.println("게시글 내용 " + top5like.getContent());
-//            System.out.println("게시글 작성자 로그인id " + top5like.getMember().getLoginId());
-//            System.out.println("게시글 좋아요 수 " + top5like.getLikeCount());
-//            System.out.println("\n");
-//            i = i+1;
-//        }
-        // 3, 2, 1, 5, 4 순으로 출력되어야 함
-
-
-    }
-
     @Test
     public void 글삭제(){
 
-        Member member1 = getMember("test1", "test2", "test2", Role.ADMIN);
+        Member member1 = getMember("test2", "test2", "test2", Role.ADMIN);
         memberService.join(member1);
 
-        Board board1 = getBoard(member1, "테스트1입니다");
+        Board board1 = getBoard(member1, "테스트2입니다");
         boardService.save(board1);
         likesService.like(member1.getId(), board1.getId());
 
@@ -175,10 +112,10 @@ public class BoardServiceTest {
     @Test
     public void 내가쓴글찾기 (){
 
-        Member member1 = getMember("test1", "test2", "test2", Role.ADMIN);
+        Member member1 = getMember("test2", "test2", "test2", Role.ADMIN);
         memberService.join(member1);
 
-        Board board1 = getBoard(member1, "테스트1입니다");
+        Board board1 = getBoard(member1, "테스트2입니다");
         boardService.save(board1);
 
         List<Board> findBoards = boardService.findByMemberId(member1.getId());
@@ -192,10 +129,9 @@ public class BoardServiceTest {
 
 
     @Test
-    //@Rollback(false)
     public void 내가누른좋아요글확인(){
 
-        Member member1 = getMember("test1", "test2", "test2", Role.ADMIN);
+        Member member1 = getMember("test2", "test2", "test2", Role.ADMIN);
         memberService.join(member1);
 
         Board board1 = getBoard(member1, "테스트1입니다");

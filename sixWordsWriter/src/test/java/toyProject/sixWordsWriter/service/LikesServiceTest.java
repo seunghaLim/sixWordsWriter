@@ -37,7 +37,7 @@ public class LikesServiceTest {
     @Test
     public void 좋아요() {
 
-        Member member = getMember("test1", "test1", "테스트", Role.ADMIN);
+        Member member = getMember("test2", "test2", "테스트", Role.ADMIN);
         memberService.join(member);
 
         Board board = getBoard(member, "테 스 트 입 니 다");
@@ -55,11 +55,10 @@ public class LikesServiceTest {
     }
 
     @Test
-    // @Rollback(false)
     public void 좋아요취소() {
 
-        Member member = getMember("test1", "test1", "테스트", Role.ADMIN);
-        Member member2 = getMember("test2", "test2", "테스", Role.ADMIN);
+        Member member = getMember("test3", "test3", "테스트", Role.ADMIN);
+        Member member2 = getMember("test2", "test2", "테스트", Role.ADMIN);
 
         memberService.join(member);
         memberService.join(member2);
@@ -84,7 +83,7 @@ public class LikesServiceTest {
     @Test(expected = IllegalStateException.class)
     public void 중복좋아요안됨(){
 
-        Member member = getMember("test1", "test1", "테스트", Role.ADMIN);
+        Member member = getMember("test2", "test2", "테스트", Role.ADMIN);
         memberService.join(member);
 
         Board board = getBoard(member, "테 스 트 입 니 다");

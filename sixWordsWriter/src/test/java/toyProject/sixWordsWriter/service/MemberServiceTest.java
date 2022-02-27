@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
+import toyProject.sixWordsWriter.DuplicatedIdEx;
 import toyProject.sixWordsWriter.domain.Member;
 import toyProject.sixWordsWriter.domain.Role;
 import toyProject.sixWordsWriter.repository.MemberJpaRepository;
@@ -29,14 +30,15 @@ public class MemberServiceTest {
 
     @Autowired
     LoginService loginService;
+
     @Test
     public void 회원가입() {
 
         // given
         Member member = new Member();
-        member.setLoginId("tmdgk4902");
-        member.setPassword("2b48r755!");
-        member.setName("ddd");
+        member.setLoginId("test2");
+        member.setPassword("test2");
+        member.setName("test2");
         member.setRole(Role.USER);
 
         // when
@@ -52,7 +54,7 @@ public class MemberServiceTest {
     public void 조회() {
 
         // given
-        Member member = getMember("test", "test!", "name", Role.ADMIN);
+        Member member = getMember("test3", "test3", "test3", Role.ADMIN);
 
         // when
         Long findMemberId = memberService.join(member);
@@ -66,12 +68,12 @@ public class MemberServiceTest {
     }
 
 
-    @Test(expected = IllegalStateException.class)
+    @Test(expected = DuplicatedIdEx.class)
     public void 동일아이디예외() {
 
         // given
-        Member member1 = getMember("test1", "test1", "test1", Role.ADMIN);
-        Member member2 = getMember("test1", "test1", "test1", Role.ADMIN);
+        Member member1 = getMember("test4", "test4", "test4", Role.ADMIN);
+        Member member2 = getMember("test4", "test4", "test4", Role.ADMIN);
 
         // when
         memberService.join(member1);
@@ -81,17 +83,6 @@ public class MemberServiceTest {
         org.assertj.core.api.Assertions.fail("예외가 발생해야 한다");
 
     }
-
-    @Test
-    public void 로그인(){
-        Member member1 = getMember("test1", "test1", "test1", Role.ADMIN);
-        memberService.join(member1);
-
-
-
-
-    }
-
 
 
     private Member getMember(String loginId, String password, String name, Role role) {
